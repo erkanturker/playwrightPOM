@@ -1,0 +1,23 @@
+
+{
+  "local": {
+    "admin": {
+      "username": "admiadmin_dev",
+      "password": "admin_password_dev"
+    },
+    "teacher": {
+      "username": "teacher_dev",
+      "password": "teacher_password_dev"
+    }
+  },
+  "development": {
+    "admin": {
+      "username": "admin",
+      "password": "12345"
+    },
+    "teacher": {
+      "username": "sbrown",
+      "password": "12345"
+    }
+  }
+}
