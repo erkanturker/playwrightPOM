@@ -1,12 +1,12 @@
 const { loadAccountCredentials } = require("../utils/accountLoader");
+const BasePage = require("./BasePage");
 
-class LoginPage {
+class LoginPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
     this.usernameInputLocator = this.page.locator("#formBasicUsername");
     this.passwordInputLocator = this.page.locator("#formBasicPassword");
     this.submitButtonLocator = this.page.locator('text="Login"');
-    this.titleLocator = this.page.locator("h1");
     this.accounts = loadAccountCredentials();
   }
 
@@ -15,11 +15,6 @@ class LoginPage {
     await this.usernameInputLocator.fill("admin");
     await this.passwordInputLocator.fill("12345");
     await this.submitButtonLocator.click();
-  }
-
-  async getTitleText() {
-    await this.titleLocator.waitFor({ state: "visible" });
-    return await this.titleLocator.textContent();
   }
 
   async login(username, password) {

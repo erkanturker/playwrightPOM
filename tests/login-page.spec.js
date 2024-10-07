@@ -15,38 +15,6 @@ beforeEach
 
 */
 
-test("Admin Should Login Normal", async ({ page }) => {
-  await page.goto("https://comattfrontend.onrender.com/");
-  await page.locator("#formBasicUsername").fill("admin");
-  await page.locator("#formBasicPassword").fill("12345");
-  await page.locator('text="Login"').click();
-  //page.locator("h1").waitFor({ state: "visible" });
-  await expect(page.locator("h1")).toHaveText("Dashboard");
-});
-
-test("Teacher Should Login Normal", async ({ page }) => {
-  await page.goto("https://comattfrontend.onrender.com/");
-  await page.locator("#formBasicUsername").fill("sbrown");
-  await page.locator("#formBasicPassword").fill("12345");
-  await page.locator('text="Login"').click();
-  //page.locator("h1").waitFor({ state: "visible" });
-  await expect(page.locator("h1")).toHaveText("Dashboard");
-});
-
-test("POM Admin Should login", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.loginAdmin();
-
-  expect(await loginPage.getTitleText()).toBe("Dashboard");
-});
-
-test("POM Teacher Should login", async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.loginByTeacher();
-
-  expect(await loginPage.getTitleText()).toBe("Dashboard");
-});
-
 test.describe("Login Page", { tag: ["@smoke"] }, () => {
   let loginPage;
 
@@ -66,6 +34,8 @@ test.describe("Login Page", { tag: ["@smoke"] }, () => {
     expect(await loginPage.getTitleText()).toBe("Dashboard");
   });
 });
+
+
 
 function countFrequency(word) {
   const myMap = new Map();
