@@ -3,7 +3,7 @@ const LoginPage = require("../pages/LoginPage");
 const UsersPage = require("../pages/UsersPage");
 const DbHelper = require("../helpers/DbHelper");
 
-test.describe.serial("Users Page", { tag: ["@users"] }, () => {
+test.describe.serial("Users Page", { tag: ["@regression"] }, () => {
   let loginPage;
   let usersPage;
   const dbHelper = new DbHelper();
