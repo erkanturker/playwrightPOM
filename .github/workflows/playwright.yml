@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  smoke_test:  # Changed 'smoke test' to 'smoke_test'
+  smoke_test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -17,18 +17,19 @@ jobs:
         run: npm ci --force
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: Run Playwright Smoke Tests
         run: ENV=development npx playwright test --grep @smoke
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: smoke_report_${{ github.run_id }}  # Unique name using run ID
           path: playwright-report/
           retention-days: 30
 
-  regression_test:  # Changed 'regression test' to 'regression_test'
+  regression_test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    needs: smoke_test  # This makes the regression test depend on the smoke test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,11 +39,11 @@ jobs:
         run: npm ci --force
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: Run Playwright Regression Tests
         run: ENV=development npx playwright test --grep @regression
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: regression_report_${{ github.run_id }}  # Unique name using run ID
           path: playwright-report/
           retention-days: 30
